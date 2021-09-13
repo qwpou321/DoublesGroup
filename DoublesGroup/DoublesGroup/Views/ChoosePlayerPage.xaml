@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoublesGroup.Views.ChoosePlayerPage"
+             Title="Choose Player">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Clicked="OnAddClicked" />
+        <ToolbarItem Text="Delete"
+                     Clicked="OnDeleteClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ListView x:Name="listView"
+              ItemSelected="listView_ItemSelected" >
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell Tapped="OnViewCellTapped">
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Choosed}"
+                                  CheckedChanged="OnCheckedChanged" 
+                                  Color="Gray"/>
+                        <Label FontSize="Medium"
+                               VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Name}"/>
+                                    <Span Text="   lv"/>
+                                    <Span Text="{Binding Level}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
