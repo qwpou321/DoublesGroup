@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DoublesGroup
 {
@@ -120,8 +121,7 @@ namespace DoublesGroup
         {
             int numberOfPlayer = playersToBeGrouped.Count;
             Random random = new Random();
-            int r = random.Next(numberOfPlayer);
-            return playersToBeGrouped[r];
+            return playersToBeGrouped[random.Next(numberOfPlayer)];
         }
 
         Player Get2ndOr3rdPlayer(Player firstPlayer, List<Player> playersToBeGrouped)
@@ -129,21 +129,17 @@ namespace DoublesGroup
             int numberOfPlayer = playersToBeGrouped.Count;
             if (numberOfPlayer < 1) return playersToBeGrouped[0];
             Random random = new Random();
-            int r = random.Next(numberOfPlayer);
 
             for (int i = 1; i < m_maxLevelGapBetweenPlayers; i++)
             {
-                for (int j = r; j < numberOfPlayer + r; j++)
-                {
-                    bool isChoosePlayerTooPowerless = playersToBeGrouped[j % numberOfPlayer].Level <= firstPlayer.Level + i;
-                    bool isChoosePlayerTooPowerful = playersToBeGrouped[j % numberOfPlayer].Level >= firstPlayer.Level - i;
-                    if (isChoosePlayerTooPowerless && isChoosePlayerTooPowerful)
-                    {
-                        return playersToBeGrouped[j % numberOfPlayer];
-                    }
-                }
+                var suitablePlayers = from player in playersToBeGrouped
+                                      where player.Level <= firstPlayer.Level + i &
+                                            player.Level >= firstPlayer.Level - i
+                                      select player;
+                List<Player> players = suitablePlayers.ToList();
+                if (players.Count > 0) return players[random.Next(players.Count)];
             }
-            return playersToBeGrouped[r];
+            return playersToBeGrouped[random.Next(numberOfPlayer)];
         }
 
         Player Get4thPlayer(List<Player> chosendPlayers, List<Player> playersToBeGrouped)
@@ -166,17 +162,16 @@ namespace DoublesGroup
             int WorstLevel = chosendPlayers[Worst].Level;
 
             Random random = new Random();
-            int r = random.Next(numberOfPlayer);
 
             for (int i = 0; i < m_maxLevelGapBetweenPlayers; i++)
             {
-                for (int j = r; j < numberOfPlayer + r; j++)
-                {
-                    bool isPlayerSuitable = playersToBeGrouped[j % numberOfPlayer].Level + MiddleLevel + i == WorstLevel + BestLevel;
-                    if (isPlayerSuitable) return playersToBeGrouped[j % numberOfPlayer];
-                }
+                var suitablePlayers = from player in playersToBeGrouped
+                                      where +MiddleLevel + i == WorstLevel + BestLevel
+                                      select player;
+                List<Player> players = suitablePlayers.ToList();
+                if (players.Count > 0) return players[random.Next(players.Count)];
             }
-            return playersToBeGrouped[r];
+            return playersToBeGrouped[random.Next(numberOfPlayer)];
         }
 
         // Everyone has to play the same number of games.
