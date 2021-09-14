@@ -7,6 +7,7 @@ namespace DoublesGroup
     public partial class App : Application
     {
         static PlayerDatabase playerDatabase;
+        static ScheduleTxt scheduleTxt;
 
         public App()
         {
@@ -25,6 +26,19 @@ namespace DoublesGroup
                 return playerDatabase;
             }
         }
+
+        public static ScheduleTxt ScheduleTxt
+        {
+            get
+            {
+                if (scheduleTxt == null)
+                {
+                    scheduleTxt = new ScheduleTxt(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Schedule.txt"));
+                }
+                return scheduleTxt;
+            }
+        }
+
         protected override void OnStart()
         {
         }

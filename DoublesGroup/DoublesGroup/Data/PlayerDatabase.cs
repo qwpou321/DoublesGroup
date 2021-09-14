@@ -25,8 +25,8 @@ namespace DoublesGroup
         {
             List<Player> allPlayers = await GetPlayerAsync();
             var chosendPlayers = from player in allPlayers
-                                          where player.Choosed == true
-                                          select player;
+                                 where player.Choosed == true
+                                 select player;
             List<Player> chosenPlayersList = chosendPlayers.ToList();
             return chosenPlayersList;
         }

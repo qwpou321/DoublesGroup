@@ -46,7 +46,7 @@ namespace DoublesGroup
 
             for (int i = 0; i < playerOrder.Count; i += 4)
             {
-                string set = playerOrder[i].Name + "," + playerOrder[i + 1].Name + " vs " + playerOrder[i + 2].Name + "," + playerOrder[i + 3].Name;
+                string set = playerOrder[i].Name + " , " + playerOrder[i + 1].Name + "  vs  " + playerOrder[i + 2].Name + " , " + playerOrder[i + 3].Name;
                 scheduleOrder.Add(set);
             }
 
@@ -131,7 +131,7 @@ namespace DoublesGroup
             Random random = new Random();
             int r = random.Next(numberOfPlayer);
 
-            for (int i = 0; i < m_maxLevelGapBetweenPlayers; i++)
+            for (int i = 1; i < m_maxLevelGapBetweenPlayers; i++)
             {
                 for (int j = r; j < numberOfPlayer + r; j++)
                 {

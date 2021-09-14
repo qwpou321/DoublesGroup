@@ -17,11 +17,17 @@ namespace DoublesGroup.Views
             m_divider = new Divider();
         }
 
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            listView.ItemsSource = await App.ScheduleTxt.ReadTextFileToList();
+        }
+
         async void OnDivideClicked(object sender, EventArgs e)
         {
             List<Player> chosenPlayers = await App.PlayerDatabase.GetChosenPlayers();
 
-            if (chosenPlayers.Count < 5) 
+            if (chosenPlayers.Count < 5)
             {
                 await DisplayAlert("Alert", "Chosen player less than 5. Go to Choose Player Page to choose more player.", "OK");
                 return;
@@ -29,6 +35,8 @@ namespace DoublesGroup.Views
 
             List<string> schedule = m_divider.DividePlayers(chosenPlayers);
             listView.ItemsSource = schedule;
+
+            await App.ScheduleTxt.WriteListToTextFile(schedule);
         }
 
         private void OnViewCellTapped(object sender, System.EventArgs e)
