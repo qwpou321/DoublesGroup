@@ -10,7 +10,6 @@ This app help divides multiplayers into doubles group in a few step.
 4. Click Divide button in Schedule Page, and the schedule will appear.
 
 ## Future Work
-* Support player data editing. 支援編輯player的資料
 * Update schedule immediately when a player join or leave the court. 中間加人或走人可以即時更新賽程
 * Support player binding doubles. For example, player A is always grouped with player B. 支援特定雙打組合，例如A可以固定跟B一組
 * Add different mode such as competition mode. 加入不同模式，例如比賽模式(雙淘汰或單淘汰)賽程
