@@ -37,10 +37,6 @@ namespace DoublesGroup.Views
                 listView.ItemsSource = await App.PlayerDatabase.GetPlayerAsync();
             }
         }
-       void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            m_player  = e.SelectedItem as Player;
-        }
 
         async void OnCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
@@ -50,7 +46,7 @@ namespace DoublesGroup.Views
             await App.PlayerDatabase.SavePersonAsync(player);
         }
 
-        private void OnViewCellTapped(object sender, System.EventArgs e)
+        void OnViewCellTapped(object sender, System.EventArgs e)
         {
             if (m_lastCell != null)
                 m_lastCell.View.BackgroundColor = Color.Transparent;
@@ -60,6 +56,15 @@ namespace DoublesGroup.Views
                 viewCell.View.BackgroundColor = Color.LightSkyBlue;
                 m_lastCell = viewCell;
             }
+        }
+
+        async void listView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (m_player == e.Item as Player) 
+            {
+                await Shell.Current.GoToAsync($"{nameof(AddPlayerPage)}?{nameof(AddPlayerPage.PlayerId)}={m_player.Id.ToString()}");
+            }
+            m_player = e.Item as Player;
         }
     }
 }

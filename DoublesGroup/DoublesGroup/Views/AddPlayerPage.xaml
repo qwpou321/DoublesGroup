@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoublesGroup.Views.AddPlayerPage"
-             Title="Add Player"
+             Title="Player Data Entry"
              BackgroundColor="White">
     <StackLayout Margin="20">
         <Editor x:Name="name"
@@ -13,7 +13,7 @@
                 Placeholder="Level"
                 HeightRequest="50"
                 Keyboard="Numeric"/>
-        <Button Text="Add" 
-                Clicked="OnAddButtonClicked" />
+        <Button Text="Save" 
+                Clicked="OnSaveButtonClicked" />
     </StackLayout>
 </ContentPage>

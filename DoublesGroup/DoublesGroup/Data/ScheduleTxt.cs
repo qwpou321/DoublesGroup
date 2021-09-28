@@ -22,7 +22,7 @@ namespace DoublesGroup
 
         public async Task WriteListToTextFile(List<string> schedule)
         {
-            FileStream fileStream = new FileStream(m_fileName, FileMode.OpenOrCreate, FileAccess.Write);
+            FileStream fileStream = new FileStream(m_fileName, FileMode.Create, FileAccess.Write);
             StreamWriter streamWriter = new StreamWriter(fileStream);
             streamWriter.Flush();
             streamWriter.BaseStream.Seek(0, SeekOrigin.Begin);

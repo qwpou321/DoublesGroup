@@ -10,8 +10,8 @@
                      Clicked="OnDeleteClicked" />
     </ContentPage.ToolbarItems>
 
-    <ListView x:Name="listView"
-              ItemSelected="listView_ItemSelected" >
+    <ListView x:Name="listView" 
+              ItemTapped="listView_ItemTapped">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell Tapped="OnViewCellTapped">

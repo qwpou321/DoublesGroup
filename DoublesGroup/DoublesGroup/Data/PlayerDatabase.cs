@@ -21,6 +21,13 @@ namespace DoublesGroup
             return _database.Table<Player>().ToListAsync();
         }
 
+        public Task<Player> GetNoteAsync(int id)
+        {
+            return _database.Table<Player>()
+                            .Where(i => i.Id == id)
+                            .FirstOrDefaultAsync();
+        }
+
         async public Task<List<Player>> GetChosenPlayers()
         {
             List<Player> allPlayers = await GetPlayerAsync();

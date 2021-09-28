@@ -6,14 +6,41 @@ using Xamarin.Forms.Xaml;
 namespace DoublesGroup.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    [QueryProperty(nameof(PlayerId), nameof(PlayerId))]
     public partial class AddPlayerPage : ContentPage
     {
         public AddPlayerPage()
         {
             InitializeComponent();
+            BindingContext = new Player();
         }
 
-        async void OnAddButtonClicked(object sender, EventArgs e)
+        public string PlayerId
+        {
+            set
+            {
+                LoadPlayerData(value);
+            }
+        }
+
+        async void LoadPlayerData(string playerId)
+        {
+            try
+            {
+                int id = Convert.ToInt32(playerId);
+                // Retrieve the note and set it as the BindingContext of the page.
+                Player player = await App.PlayerDatabase.GetNoteAsync(id);
+                BindingContext = player;
+                name.Text = player.Name;
+                level.Text = player.Level.ToString();
+            }
+            catch (Exception)
+            {
+                await Shell.Current.GoToAsync("..");
+            }
+        }
+
+        async void OnSaveButtonClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(name.Text) || string.IsNullOrEmpty(level.Text))
             {
@@ -21,7 +48,7 @@ namespace DoublesGroup.Views
                 return;
             }
 
-            Player player = new Player();
+            Player player = (Player)BindingContext;
             player.Name = name.Text;
             try
             {
