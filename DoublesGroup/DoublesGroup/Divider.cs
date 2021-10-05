@@ -166,7 +166,7 @@ namespace DoublesGroup
             for (int i = 0; i < m_maxLevelGapBetweenPlayers; i++)
             {
                 var suitablePlayers = from player in playersToBeGrouped
-                                      where +MiddleLevel + i == WorstLevel + BestLevel
+                                      where player.Level + MiddleLevel + i == WorstLevel + BestLevel
                                       select player;
                 List<Player> players = suitablePlayers.ToList();
                 if (players.Count > 0) return players[random.Next(players.Count)];
