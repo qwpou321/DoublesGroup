@@ -29,7 +29,7 @@ namespace DoublesGroup.Views
             {
                 int id = Convert.ToInt32(playerId);
                 // Retrieve the note and set it as the BindingContext of the page.
-                Player player = await App.PlayerDatabase.GetNoteAsync(id);
+                Player player = await App.PlayerDatabase.GetPlayerAsync(id);
                 BindingContext = player;
                 name.Text = player.Name;
                 level.Text = player.Level.ToString();
@@ -66,7 +66,7 @@ namespace DoublesGroup.Views
                 return;
             }
 
-            await App.PlayerDatabase.SavePersonAsync(player);
+            await App.PlayerDatabase.SavePlayerAsync(player);
             await Shell.Current.GoToAsync("..");
 
         }

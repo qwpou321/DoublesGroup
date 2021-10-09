@@ -21,7 +21,7 @@ namespace DoublesGroup
             return _database.Table<Player>().ToListAsync();
         }
 
-        public Task<Player> GetNoteAsync(int id)
+        public Task<Player> GetPlayerAsync(int id)
         {
             return _database.Table<Player>()
                             .Where(i => i.Id == id)
@@ -38,23 +38,20 @@ namespace DoublesGroup
             return chosenPlayersList;
         }
 
-        public Task<int> SavePersonAsync(Player person)
+        public Task<int> SavePlayerAsync(Player person)
         {
             if (person.Id != 0)
             {
-                // Update an existing note.
                 return _database.UpdateAsync(person);
             }
             else
             {
-                // Save a new note.
                 return _database.InsertAsync(person);
             }
         }
 
         public Task<int> DeletePlayerAsync(Player person)
         {
-            // Delete a note.
             return _database.DeleteAsync(person);
         }
     }

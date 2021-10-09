@@ -6,6 +6,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Divide"
                      Clicked="OnDivideClicked" />
+        <ToolbarItem Text="Unselect"
+                     Clicked="OnUnselectClicked" />
     </ContentPage.ToolbarItems>
 
     <ListView x:Name="listView" >
@@ -13,10 +15,15 @@
             <DataTemplate>
                 <ViewCell Tapped="OnViewCellTapped">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding .}" 
+                        <Label Text="{Binding Players}" 
                                FontSize="Medium" 
                                VerticalOptions="Center"
                                HorizontalOptions="CenterAndExpand"></Label>
+                        <CheckBox IsChecked="{Binding Played}"
+                                  CheckedChanged="OnCheckedChanged"
+                                  Color="Gray"
+                                  HorizontalOptions="End"
+                                  TranslationX="-25"/>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

@@ -10,6 +10,7 @@ namespace DoublesGroup.Views
     {
         Player m_player;
         ViewCell m_lastCell;
+        bool m_canCheckBoxEventTrigger = false;
 
         public ChoosePlayerPage()
         {
@@ -18,8 +19,10 @@ namespace DoublesGroup.Views
 
         protected override async void OnAppearing()
         {
+            m_canCheckBoxEventTrigger = false;
             base.OnAppearing();
             listView.ItemsSource = await App.PlayerDatabase.GetPlayerAsync();
+            m_canCheckBoxEventTrigger = true;
         }
 
         async void OnAddClicked(object sender, EventArgs e)
@@ -40,10 +43,13 @@ namespace DoublesGroup.Views
 
         async void OnCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
+            if (m_canCheckBoxEventTrigger == false) return;
             CheckBox checkBox = (CheckBox)sender;
             Player player = (Player)checkBox.BindingContext;
             if (player == null) return;
-            await App.PlayerDatabase.SavePersonAsync(player);
+            m_canCheckBoxEventTrigger = false;
+            await App.PlayerDatabase.SavePlayerAsync(player);
+            m_canCheckBoxEventTrigger = true;
         }
 
         void OnViewCellTapped(object sender, System.EventArgs e)

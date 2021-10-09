@@ -10,27 +10,22 @@ namespace DoublesGroup
         Dictionary<Player, int> m_gamesPlayerHasPlayed;
         List<Player> m_players;
         int m_maxLevelGapBetweenPlayers = 3;
+        int m_nMinGamesPlayerHasPlayed;
 
-        public List<string> DividePlayers(List<Player> players)
+        public List<Schedule> DividePlayers(List<Player> players, List<Schedule> scheduleHasPlayed)
         {
-            m_players = players;
-            m_gamesPlayerHasPlayed = new Dictionary<Player, int>();
-            foreach (Player player in players)
-            {
-                m_gamesPlayerHasPlayed.Add(player, 0);
-            }
+            InitData(players, scheduleHasPlayed);
 
-            int minGamesPlayerHasPlayed = 0;
             List<Player> playerOrder = new List<Player>();
 
-            while (isFinish() == false)
+            while (isFinish() == false && m_nMinGamesPlayerHasPlayed < 6)
             {
                 List<Player> PlayersToBeGrouped = new List<Player>();
                 List<Player> PlayersToBeGrouped2 = new List<Player>();
                 foreach (KeyValuePair<Player, int> item in m_gamesPlayerHasPlayed)
                 {
-                    if (item.Value == minGamesPlayerHasPlayed) PlayersToBeGrouped.Add(item.Key);
-                    if (item.Value == minGamesPlayerHasPlayed + 1) PlayersToBeGrouped2.Add(item.Key);
+                    if (item.Value == m_nMinGamesPlayerHasPlayed) PlayersToBeGrouped.Add(item.Key);
+                    if (item.Value == m_nMinGamesPlayerHasPlayed + 1) PlayersToBeGrouped2.Add(item.Key);
                 }
 
                 if (PlayersToBeGrouped.Count > 4)
@@ -40,7 +35,7 @@ namespace DoublesGroup
                 }
 
                 playerOrder.AddRange(GetGroup(PlayersToBeGrouped, PlayersToBeGrouped2));
-                minGamesPlayerHasPlayed++;
+                m_nMinGamesPlayerHasPlayed++;
             }
 
             List<string> scheduleOrder = new List<string>();
@@ -51,7 +46,68 @@ namespace DoublesGroup
                 scheduleOrder.Add(set);
             }
 
-            return scheduleOrder;
+            List<Schedule> newAllSchedules = scheduleHasPlayed;
+
+            for (int i = 0; i < scheduleOrder.Count; i++)
+            {
+                Schedule schedule = new Schedule();
+                schedule.Players = scheduleOrder[i];
+                newAllSchedules.Add(schedule);
+            }
+
+            return newAllSchedules;
+        }
+
+        void InitData(List<Player> players, List<Schedule> scheduleHasPlayed)
+        {
+            m_players = players;
+
+            m_gamesPlayerHasPlayed = new Dictionary<Player, int>();
+            foreach (Player player in players)
+            {
+                m_gamesPlayerHasPlayed.Add(player, 0);
+            }
+
+            if (scheduleHasPlayed.Count == 0)
+            {
+                m_nMinGamesPlayerHasPlayed = 0;
+                return;
+            }
+
+            List<string> szPlayerList = new List<string>();
+            foreach (Schedule schedule in scheduleHasPlayed)
+            {
+                string[] temp = schedule.Players.Split(new string[] { " , ", "  vs  " }, StringSplitOptions.RemoveEmptyEntries);
+                szPlayerList.AddRange(temp);
+            }
+
+            int nMaxGamesPlayerHasPlayed = 0;
+
+            foreach (Player player in players)
+            {
+                foreach (string temp in szPlayerList)
+                {
+                    if (player.Name == temp)
+                    {
+                        m_gamesPlayerHasPlayed[player]++;
+                    }
+                }
+
+                if (m_gamesPlayerHasPlayed[player] > nMaxGamesPlayerHasPlayed)
+                {
+                    nMaxGamesPlayerHasPlayed++;
+                }
+            }
+
+            m_nMinGamesPlayerHasPlayed = nMaxGamesPlayerHasPlayed - 1;
+
+            foreach (Player player in players)
+            {
+                if (m_gamesPlayerHasPlayed[player] == 0)
+                {
+                    m_gamesPlayerHasPlayed[player] = m_nMinGamesPlayerHasPlayed;
+                }
+            }
         }
 
         List<Player> GetGroup(List<Player> chosenPlayers, List<Player> playersToBeGrouped)

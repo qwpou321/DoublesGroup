@@ -7,7 +7,7 @@ namespace DoublesGroup
     public partial class App : Application
     {
         static PlayerDatabase playerDatabase;
-        static ScheduleTxt scheduleTxt;
+        static ScheduleDatabase scheduleDatabase;
 
         public App()
         {
@@ -27,15 +27,15 @@ namespace DoublesGroup
             }
         }
 
-        public static ScheduleTxt ScheduleTxt
+        public static ScheduleDatabase ScheduleDatabase 
         {
-            get
+            get 
             {
-                if (scheduleTxt == null)
+                if (scheduleDatabase == null)
                 {
-                    scheduleTxt = new ScheduleTxt(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Schedule.txt"));
+                    scheduleDatabase = new ScheduleDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Schedule.db3"));
                 }
-                return scheduleTxt;
+                return scheduleDatabase;
             }
         }
 
