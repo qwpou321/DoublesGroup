@@ -1,5 +1,5 @@
 # Doubles Group 
-* Divide Multiplayer into doubles randomly 多人隨機雙打分組
+* Divide multiplayers into doubles randomly 多人隨機雙打分組
 * This app is suitable for situations that several players share limited court and need to be grouped in random doubles. 這個app適合 "大量球員要共用有限的場地且需要隨機雙打分組" 的情況
 
 ## Introduction
