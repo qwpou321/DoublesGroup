@@ -8,14 +8,14 @@ App helps divide players into doubles group in a few step.
    1. Users could add player by button on the upper right of this page, or edit player data by double click the player.
    2. Be careful, player's Level is limited in 1(beginner) and 4(expert).
 <p align="left">
-    <img src="resources/ChoosePlayerPage.png" alt="ChoosePlayerPage" width="600">
+    <img src="Resources/ChoosePlayerPage.png" alt="ChoosePlayerPage" width="600">
 </p> 
 
 2. Click Divide button in Schedule Page, and the schedule will appear.
    1. Schedule is based on the number of games player have played and player's level.
 
 <p align="left"> 
-    <img src="resources/SchedulePage.png" alt="SchedulePage" width="600"> 
+    <img src="Resources/SchedulePage.png" alt="SchedulePage" width="600"> 
 </p> 
 
 3. After per game, check the ChcekBox to record the played games. 
@@ -24,7 +24,7 @@ App helps divide players into doubles group in a few step.
 5. If someone leaves or joins midway, just select or unselect the players in Choose Player Page, and click Divide button again. 
    1. Schedule will be rearrange based on played games. 
 <p align="left">
-    <img src="resources/Rearrang.png" alt="Rearrang" width="600">
+    <img src="Resources/Rearrang.png" alt="Rearrang" width="600">
 </p>
 
 ## Future Work
