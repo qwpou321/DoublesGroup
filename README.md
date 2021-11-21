@@ -24,7 +24,7 @@ App helps divide players into doubles group in a few step.
 5. If someone leaves or joins midway, just select or unselect the players in Choose Player Page, and click Divide button again. 
    1. Schedule will be rearrange based on played games. 
 <p align="left">
-    <img src="resources/Rearranged.png" alt="Rearranged" width="600">
+    <img src="resources/Rearrang.png" alt="Rearrang" width="600">
 </p>
 
 ## Future Work
