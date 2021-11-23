@@ -198,31 +198,31 @@ namespace DoublesGroup
             return playersToBeGrouped[random.Next(numberOfPlayer)];
         }
 
-        Player Get4thPlayer(List<Player> chosendPlayers, List<Player> playersToBeGrouped)
+        Player Get4thPlayer(List<Player> chosenPlayers, List<Player> playersToBeGrouped)
         {
             int numberOfPlayer = playersToBeGrouped.Count;
-            if (numberOfPlayer < 1) return playersToBeGrouped[0];
+            if (numberOfPlayer <= 1) return playersToBeGrouped[0];
 
-            // To find best and worst player in ChoosedPlayers
+            // To find best and worst player in ChosenPlayers
             int Best = 0, Worst = 1;
             for (int i = 0; i < 3; i++)
             {
-                if (chosendPlayers[i].Level > chosendPlayers[Best].Level) Best = i;
-                if (chosendPlayers[i].Level < chosendPlayers[Worst].Level) Worst = i;
+                if (chosenPlayers[i].Level > chosenPlayers[Best].Level) Best = i;
+                if (chosenPlayers[i].Level < chosenPlayers[Worst].Level) Worst = i;
             }
             // best index + worst index + middle index = sum of three player's index = 3 
             int Middle = 3 - Best - Worst;
 
-            int BestLevel = chosendPlayers[Best].Level;
-            int MiddleLevel = chosendPlayers[Middle].Level;
-            int WorstLevel = chosendPlayers[Worst].Level;
+            int BestLevel = chosenPlayers[Best].Level;
+            int MiddleLevel = chosenPlayers[Middle].Level;
+            int WorstLevel = chosenPlayers[Worst].Level;
 
             Random random = new Random();
 
             for (int i = 0; i < m_maxLevelGapBetweenPlayers; i++)
             {
                 var suitablePlayers = from player in playersToBeGrouped
-                                      where player.Level + MiddleLevel + i == WorstLevel + BestLevel
+                                      where i >= WorstLevel + BestLevel - player.Level - MiddleLevel
                                       select player;
                 List<Player> players = suitablePlayers.ToList();
                 if (players.Count > 0) return players[random.Next(players.Count)];
